@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Purchase
-from erp_framework.sites import erp_admin_site
+from .models import Purchase,ProductInOutDBView
 
 
 class PurchaseAdmin(admin.ModelAdmin):
@@ -13,5 +12,6 @@ class PurchaseAdmin(admin.ModelAdmin):
     readonly_fields = ['value']
 
 
-erp_admin_site.register(Purchase, PurchaseAdmin)
+admin.site.register(Purchase, PurchaseAdmin)
+# admin.site.register(ProductInOutDBView)
 

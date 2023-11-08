@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from erp_framework.base.models import EntityModel
+from purchase.models import Purchase
+from django.db.models import Avg, F, Sum
 
 
 # Create your models here.
@@ -16,6 +18,30 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def available_quantity(self):
+        # Calculate available quantity by subtracting the sold quantity from the purchased quantity
+        purchased_quantity = Purchase.objects.filter(product=self).aggregate(purchased_qty=Sum('quantity'))['purchased_qty'] or 0
+        sold_quantity = Sale.objects.filter(product=self).aggregate(sold_qty=Sum('quantity'))['sold_qty'] or 0
+        available_quantity = purchased_quantity - sold_quantity
+
+    
+
+        return available_quantity
+    
+    def average_price(self):
+
+        # Calculate the average price based on purchased items
+        average_price = (
+            Purchase.objects.filter(product=self)
+            .aggregate(avg_price=Avg('price'))['avg_price']
+        )
+
+        return average_price if average_price else 0,
+        
+    class Meta:
+        verbose_name = _("Produit")
+        verbose_name_plural = _("Produits")
 
 
 class Sale(models.Model):
@@ -40,3 +66,6 @@ class Sale(models.Model):
     def save(self, *args, **kwargs):
         self.value = self.quantity * self.price
         super().save(*args, **kwargs)
+    class Meta:
+        verbose_name = _("Vente")
+        verbose_name_plural = _("Ventes")

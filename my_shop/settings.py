@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    # 'django.contrib.admin',
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -47,16 +46,20 @@ INSTALLED_APPS = [
     "crequest",
     "crispy_forms",
     "crispy_bootstrap4",
-    "reversion",
     "tabular_permissions",
     "erp_framework.admin.jazzmin_integration",
     "erp_framework.admin",
-    # "erp_framework.activity",
-    "erp_framework.reporting",
-    "slick_reporting",
-    "jazzmin",
-    "django.contrib.admin",  # comes at the end because the theme is replaced
+
+
+    'reversion',  # needed only when you use the admin app
+
+    'erp_framework.reporting',
+    'slick_reporting',
+
+    'jazzmin',  # optional
+    'django.contrib.admin',
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -123,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "fr-us"
 
 TIME_ZONE = "UTC"
 
@@ -152,8 +155,8 @@ SLICK_REPORTING_DEFAULT_CHARTS_ENGINE = "highcharts"
 # RA_ADMIN_INDEX_PAGE = "admin/custom_index.html"
 # RA_ADMIN_INDEX_TITLE = "My Shop"
 JAZZMIN_SETTINGS = {
-    "site_brand": "My Shop ERP System",
-    "welcome_sign": "Welcome to Django ERP framework demo site. \n Use Username:`test` Password:`testuser123` to login",
+    "site_brand": "ERP Company",
+    "welcome_sign": "Welcome to Django ERP framework demo site. ",
     # Links to put along the top menu
     "topmenu_links": [
         {
@@ -166,14 +169,20 @@ JAZZMIN_SETTINGS = {
             "url": "/front-end-dashboard",
             "new_window": True,
         },
+        {
+            "name": "About",
+            "url": "/About",
+   
+        },
     ],
+    
 }
 
 ERP_FRAMEWORK_SETTINGS = {
     "index_title": "My Shop dashboard",
     "index_template": "admin/custom_index.html",
-    # "report_base_template": "request_analytics/base.html",
-    # "admin_base_site_template": "request_analytics/base.html",
+    "report_base_template": "request_analytics/base.html",
+    "admin_base_site_template": "request_analytics/base.html",
     "sites": {
         "requests-dashboard": {
             "admin_base_site_template": "request_analytics/base.html",
@@ -184,7 +193,7 @@ ERP_FRAMEWORK_SETTINGS = {
 
 LOGIN_REDIRECT_URL = reverse_lazy("admin:index", current_app="erp_framework_admin")
 
-REQUEST_BASE_URL = "https://my-shop.django-erp-framrwork.com"
+REQUEST_BASE_URL = "http://127.0.0.1:8000/"
 
 IPWARE_META_PRECEDENCE_ORDER = (
     "HTTP_CF_CONNECTING_IP",

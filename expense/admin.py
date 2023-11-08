@@ -1,5 +1,4 @@
 from django.contrib import admin
-from erp_framework.sites import erp_admin_site
 
 from .models import Expense, ExpenseTransaction
 
@@ -9,7 +8,6 @@ class ExpenseAdmin(admin.ModelAdmin):
     pass
 
 
-erp_admin_site.register(Expense, ExpenseAdmin)
 
 
 class ExpenseTransactionAdmin(admin.ModelAdmin):
@@ -19,4 +17,6 @@ class ExpenseTransactionAdmin(admin.ModelAdmin):
     date_hierarchy = 'date'
     search_fields = ['number', 'notes']
 
-erp_admin_site.register(ExpenseTransaction, ExpenseTransactionAdmin)
+admin.site.register(ExpenseTransaction, ExpenseTransactionAdmin)
+admin.site.register(Expense)
+

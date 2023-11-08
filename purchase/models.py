@@ -28,8 +28,8 @@ class Purchase(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        verbose_name = _("Purchase")
-        verbose_name_plural = _("Purchases")
+        verbose_name = _("Achat")
+        verbose_name_plural = _("Achats")
 
 
 class ProductInOutDBView(models.Model):

@@ -1,12 +1,16 @@
 from django.contrib import admin
-from erp_framework.admin.admin import EntityAdmin
 
 from .models import Client, Product, Sale
-from erp_framework.sites import erp_admin_site
+# from erp_framework.sites import erp_admin_site
+
 
 # Register your models here.
-erp_admin_site.register(Client, EntityAdmin)
-erp_admin_site.register(Product)
+admin.site.register(Client)
+
+class ProductAdmin(admin.ModelAdmin):
+
+    list_display = ["name", "available_quantity","average_price"]
+admin.site.register(Product,ProductAdmin)
 
 
 class SaleAdmin(admin.ModelAdmin):
@@ -19,4 +23,4 @@ class SaleAdmin(admin.ModelAdmin):
     readonly_fields = ["value"]
 
 
-erp_admin_site.register(Sale, SaleAdmin)
+admin.site.register(Sale, SaleAdmin)
